@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+</style>
+
+<body>
+    <script>
+        // 1.形参设置默认值
+        //es5
+        function sum(num1, num2) {
+            num1 = num1 || 10;
+            num2 = num2 || 20;
+            console.log(num1 + num2);
+        }
+        sum();
+
+        //es6
+        function sum2(num1 = 10, num2 = 20) {
+            console.log(num1 + num2);
+        }
+        sum2(10, 24);
+
+        //2. 参数形式 延展操作符
+        //es5
+        function sum3() {
+            let result = 0;
+            for (let value of arguments) {
+                result += value;
+            }
+            return result;
+        }
+        console.log(sum3(1, 2, 3));
+
+        //es6
+        function sum3(name, sex, ...nums) {
+            let result = 0;
+            console.log(name);
+            console.log(sex);
+            for (let value of nums) {
+                result += value;
+            }
+            return result;
+        }
+        console.log(sum3("张三", "男", 2, 3, 4));
+
+        //箭头函数
+        let sum
+    </script>
+</body>
+
+</html>

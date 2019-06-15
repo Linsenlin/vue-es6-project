@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .test {
+        color: red;
+    }
+</style>
+
+<body>
+    <ul>
+        <li>111</li>
+        <li>211</li>
+        <li>311</li>
+        <li>411</li>
+        <li>511</li>
+    </ul>
+    <script>
+        //1 模板字符串
+        let str = '3321';
+        let chassName = 'test';
+        let html = `<p class="${chassName}">${str}</p>`
+        console.log(html);
+
+        //2 数组的扩展
+        //Array.from()转数组
+
+        let allLis = document.querySelectorAll('li');
+        console.log(allLis);
+        console.log(Array.isArray(allLis));
+        console.log(Array.from(allLis));
+        console.log(Array.isArray(Array.from(allLis)));
+
+        //Array.of()
+
+        let arrayList = Array.of(1, 2, 3, 4);
+        console.log(arrayList);
+        let arrayList2 = Array.of('张三', '李四', '王五');
+        console.log(arrayList2);
+
+
+        //3 对象扩展
+        //key和value一样的，写一个就可以了
+        let name = '张三 ';
+        let age = 18;
+        let obj = {
+            name,
+            age
+        }
+        console.log(obj);
+
+        //Object.assgin()合并对象
+        let obj1 = { name: '张三' };
+        let obj2 = { age: 12 };
+        let obj3 = { sex: '男' };
+        let obj4 = { friends: '李四' };
+        Object.assign(obj1, obj2, obj3, obj4);
+        console.log(obj1);
+
+        //延展操作符 数据传递
+        let str1 = '22222222222';
+        let strArr = [...str1];
+        console.log(strArr);
+
+        //面试
+        let myArr = [1, 2, 3, 10, '张三', 2, 1,];
+        console.log(new Set(myArr));
+        console.log([...new Set(myArr)]);
+
+    </script>
+
+
+
+</body>
+
+</html>
