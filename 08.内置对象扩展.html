@@ -9,7 +9,7 @@
 </head>
 <style>
     .test {
-        color: red;
+        color: #fff;
     }
 </style>
 
@@ -56,10 +56,18 @@
         console.log(obj);
 
         //Object.assgin()合并对象
-        let obj1 = { name: '张三' };
-        let obj2 = { age: 12 };
-        let obj3 = { sex: '男' };
-        let obj4 = { friends: '李四' };
+        let obj1 = {
+            name: '张三'
+        };
+        let obj2 = {
+            age: 12
+        };
+        let obj3 = {
+            sex: '男'
+        };
+        let obj4 = {
+            friends: '李四'
+        };
         Object.assign(obj1, obj2, obj3, obj4);
         console.log(obj1);
 
@@ -69,10 +77,9 @@
         console.log(strArr);
 
         //面试
-        let myArr = [1, 2, 3, 10, '张三', 2, 1,];
+        let myArr = [1, 2, 3, 10, '张三', 2, 1, ];
         console.log(new Set(myArr));
         console.log([...new Set(myArr)]);
-
     </script>
 
 
