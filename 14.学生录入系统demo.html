@@ -5,49 +5,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>13.v-bind指令</title>
+    <title>14.学生录入系统demo</title>
 </head>
 <style>
+    #app {
+        width: 600px;
+        margin: 0 auto;
+    }
+
     .active {
-        background-color: brown;
-        font-weight: bold;
-        color: #fff;
+        background-color: #ccc;
     }
 </style>
 
 <body>
     <div id="app">
+        <form>
+            <fieldset>
+                <legend>学生录入系统</legend>
+                <div>
+                    <span>姓名：</span>
+                    <input type="text" placeholder="请输入姓名" v-model="newStudent.name">
+                </div>
+                <div>
+                    <span>年龄：</span>
+                    <input type="text" placeholder="请输入年龄" v-model="newStudent.age">
+                </div>
+                <div>
+                    <span>性别：</span>
+                    <select v-model="newStudent.sex">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </div>
+                <div>
+                    <span>手机：</span>
+                    <input type="text" placeholder="请输入手机" v-model="newStudent.phone">
+                </div>
+                <button type="button" @click="createNewStudent()">创建新用户</button>
+            </fieldset>
+        </form>
         <div>
-            <img v-bind:src="imgSrc" :alt="alt">
-        </div>
-        <div>
-            <p v-for="(item, index) in num" :key="index" :class="index === active?'active':''"
-                @mouseover="mouseover(index)">
-                {{item}}
-            </p>
-            <p :style="{color:fontColor}">{{msg}}</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>性别</th>
+                        <th>手机</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tr v-for="(item, index) in student" :key="index" :class="index === active?'active':''"
+                    @mouseover="mouseover(index)">
+                    <td>{{item.name}}</td>
+                    <td>{{item.age}}</td>
+                    <td>{{item.sex}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>
+                        <button @click="deleteStudent(index)">删除</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
         new Vue({
-            name: 'v-bind',
             el: '#app',
             data: {
-                imgSrc: 'images/timg.jpg',
-                alt: '妹子',
-                num: ['张三', '李四', '王五', '赵六', '杨七'],
+                student: [
+                    {
+                        name: '张三',
+                        age: 18,
+                        sex: '男',
+                        phone: '15882453255',
+                    },
+                    {
+                        name: '李四',
+                        age: 17,
+                        sex: '男',
+                        phone: '15882453255',
+                    },
+                    {
+                        name: '王五',
+                        age: 19,
+                        sex: '女',
+                        phone: '15882453255',
+                    },
+                    {
+                        name: '赵六',
+                        age: 20,
+                        sex: '男',
+                        phone: '15882453255',
+                    }
+                ],
                 active: null,
-                msg: '老子今天不上班',
-                fontColor: 'green'
+                newStudent: {
+                    name: '',
+                    age: null,
+                    sex: '',
+                    phone: '',
+                },
             },
             methods: {
-                mouseover: function (index) {
-                    console.log(index);
+                mouseover(index) {
+                    // console.log(index);
                     this.active = index;
+                },
+
+                createNewStudent() {
+                    //姓名不能为空
+                    if (this.newStudent.name === '') {
+                        alert('姓名不能为空');
+                        return
+                    }
+                    if (this.newStudent.age <= 0 || this.newStudent.age >= 60) {
+                        alert('年龄不符合');
+                        return
+                    }
+                    if (this.newStudent.sex === '') {
+                        alert('性别不能为空');
+                        return
+                    }
+                    if (this.newStudent.phone === '') {
+                        alert('手机不能为空');
+                        return
+                    }
+                    this.student.unshift(this.newStudent);
+                    this.newStudent = {
+                        name: '',
+                        age: null,
+                        sex: '',
+                        phone: '',
+                    };
+                },
+                deleteStudent(index) {
+                    console.log(index);
+                    this.student.splice(index, 1);
                 }
-            },
+            }
         })
+
     </script>
 </body>
 
