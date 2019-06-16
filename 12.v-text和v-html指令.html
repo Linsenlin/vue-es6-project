@@ -10,22 +10,16 @@
 
 <body>
     <div id="app">
-        <p>输入对应的分数：</p>
-        <p v-if="score>=90">优秀</p>
-        <p v-else-if="score>=75">良好</p>
-        <p v-else-if="score>=60">及格</p>
-        <p v-else>不及格</p>
-        <input type="text" v-model="score">
+        <p v-text="msg"></p>
+        <p v-html="html"></p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
         new Vue({
             el: '#app',
             data: {
-                score: 0
-            },
-            methods: {
-
+                msg: '今天不错哦',
+                html: '<input type="text">'
             },
         })
     </script>

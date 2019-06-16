@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 遍历数组 -->
+        <p v-for="(item, index) in scores" :key="index">
+            {{index+':'+item}}
+        </p>
+        <!-- 遍历对象 -->
+        <p v-for="(item, index) in preson" :key="index">
+            {{index+':'+item}}
+        </p>
+        <!-- 遍历数字/字符串 -->
+        <p v-for="item in name">
+            {{item}}
+        </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                scores: [100, 87, 85, 62],
+                preson: {
+                    name: '李四',
+                    age: 18,
+                    sex: '男'
+                },
+                name: '张三'
+            },
+            methods: {
+
+            },
+        })
+    </script>
+</body>
+
+</html>
