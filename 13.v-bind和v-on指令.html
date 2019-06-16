@@ -25,6 +25,7 @@
                 @mouseover="mouseover(index)">
                 {{item}}
             </p>
+            <p :style="{color:fontColor}">{{msg}}</p>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -36,14 +37,15 @@
                 imgSrc: 'images/timg.jpg',
                 alt: '妹子',
                 num: ['张三', '李四', '王五', '赵六', '杨七'],
-                active: null
+                active: null,
+                msg: '老子今天不上班',
+                fontColor: 'green'
             },
             methods: {
                 mouseover: function (index) {
                     console.log(index);
                     this.active = index;
                 }
-
             },
         })
     </script>
