@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>18.vue监听两个input</title>
+</head>
+<style>
+    .btn {
+        background-color: #eee;
+    }
+
+    .btn_1 {
+        background-color: red;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="from.user">
+        <br>
+        <input type="text" v-model="from.password">
+
+        <!-- <button class="btn" v-if="from.user||from.password">确定1</button>
+        <button class="btn" v-else="from.user && from.password">确定2</button> -->
+        <!-- <button class="btn" :class="{'btn_1':address}">确定3 </button> -->
+        <button class="btn" :class="address? 'btn_1':''" :disabled="disabled">确定3</button>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        new Vue({
+            name: 'vue全局组件',
+            el: '#app',
+            data: {
+                from: {
+                    user: "",
+                    password: ""
+                },
+                disabled: true
+            },
+            methods: {
+            },
+            computed: {
+                address() {
+                    console.log((this.from.user + this.from.password).length);
+                    let lengthSum = (this.from.user + this.from.password).length;
+                    if (lengthSum > this.from.user.length && lengthSum > this.from.password.length) {
+                        this.disabled = !true;
+                        return true
+                    }
+                }
+            },
+            watch: {
+                "from.user": {
+                    handler(newval, oldval) {
+                        console.log('user length: ', newval.length)
+                    },
+                    deep: true
+                },
+                "from.password": {
+                    handler(newval, oldval) {
+                        console.log('user length: ', newval.length)
+                    },
+                    deep: true
+                },
+            },
+        })
+    </script>
+</body>
+
+</html>
