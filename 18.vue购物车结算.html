@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>18.vue购物车结算</title>
+    <!-- <link rel="stylesheet" href="./css/eleme-ui.css"> -->
+    <link rel="stylesheet" href="./css/layui.css">
+    <link rel="stylesheet" href="./css/ShoppingCart.css">
+</head>
+
+<body>
+    <div id="app">
+        <div id="myVue" class="row ">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="layui-form">
+                    <table class="ShopCartTable layui-table">
+                        <thead>
+                            <tr>
+                                <th class="selectLeft"><label class="el-checkbox"><span class="el-checkbox__input"><span
+                                                class="el-checkbox__inner"></span><input type="checkbox"
+                                                class="el-checkbox__original" value=""></span><span
+                                            class="el-checkbox__label">全选
+                                        </span></label> <span class="selectLeftGoods">商品或服务名称</span></th>
+                                <th>单价</th>
+                                <th>数量</th>
+                                <th>小计</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="selectLeft"><label class="el-checkbox"><span class="el-checkbox__input"><span
+                                                class="el-checkbox__inner"></span><input type="checkbox"
+                                                class="el-checkbox__original" value=""></span>
+                                    </label> <span class="goodName"><img src="img/service4.jpg" class="goodImg"></span>
+                                    <span class="goodName goodsName">
+                                        <h2 class="goodname">GZL-中控离心机净化机</h2>
+                                        <p class="goodGary"><span>供应商：</span> <span>美国</span></p>
+                                        <p class="goodGary"><span>发货地：</span> <span>中国大陆</span></p>
+                                    </span></td>
+                                <td class="danPrice">￥100.00</td>
+                                <td><i aria-hidden="true" class="fa  deleteBtn">-</i> <input type="text"
+                                        aria-label="..." class="form-control numInput"> <i aria-hidden="true"
+                                        class="fa  addBtn">+</i></td>
+                                <td>
+                                    <p class="totalPrice">￥100.00</p>
+                                </td>
+                                <td class="gongneng">
+                                    <p class="deletegoods">删除</p>
+                                    <p>移到我的收藏</p>
+                                    <p>加入收藏</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row tablefooter"><label class="el-checkbox" style="padding-left: 16px;"><span
+                                class="el-checkbox__input"><span class="el-checkbox__inner"></span><input
+                                    type="checkbox" class="el-checkbox__original" value=""></span><span
+                                class="el-checkbox__label">全选
+                            </span></label> <span class="removeMuch">删除选中的商品或服务</span> <span
+                            class="removeSaves">移到我的收藏</span> <span class="servicenum">已选择<span
+                                class="goodsNum">0</span>件商品<span class="goodsNum">0</span>项服务</span> <span
+                            class="totalclassPoin">总价：<span class="totalMoneyClass">￥0.00</span></span> <span
+                            class="SettlementBtn">去结算</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        new Vue({
+            name: 'vue全局组件',
+            el: '#app',
+            data: {},
+            methods: {},
+            computed: {},
+            watch: {
+                // "from.password": {
+                //     handler(newval, oldval) {
+                //         console.log('user length: ', newval.length)
+                //     },
+                //     deep: true
+                // },
+            },
+        })
+    </script>
+</body>
+
+</html>
