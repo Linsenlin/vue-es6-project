@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>20.js如何添加鼠标右击事件</title>
+</head>
+
+<body>
+    <button id="btn1">点击我右击</button>
+    <script type="text/javascript">
+        //这一步是为了阻止右击时系统默认的弹出框
+        document.getElementById("btn1").oncontextmenu = function (e) {
+            e.preventDefault();
+        };
+        //在这里你就可以自己定义事件的函数啦
+        document.getElementById("btn1").onmouseup = function (oEvent) {
+            console.log(oEvent);
+            if (!oEvent) oEvent = window.event;
+            if (oEvent.button === 2) {
+                console.log('鼠标右击了')
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>20.vue鼠标右击事件</title>
+</head>
+<style>
+</style>
+
+<body>
+    <div id="app">
+        <button id="btn1" @contextmenu.prevent="handle()" ref="btn">点击我右击</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        new Vue({
+            name: 'vue点击图片旋转90度',
+            el: '#app',
+            data: {},
+            methods: {
+                handle() {
+                    console.log('鼠标右击了')
+                }
+            },
+            computed: {},
+            watch: {},
+        })
+    </script>
+</body>
+
+</html>
