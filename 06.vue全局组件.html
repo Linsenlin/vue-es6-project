@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06.vue全局组件</title>
+</head>
+<style>
+</style>
+
+<body>
+    <div id="app">
+        <!-- <Profile /> -->
+        <my-Profile />
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        let Profile = Vue.extend({
+            template: `
+            <div>
+                <input type="text">
+                <p>今天我不上班6</p>
+            </div>
+            `
+        })
+
+        Vue.component('myProfile', Profile);
+
+        new Vue({
+            name: 'vue全局组件',
+            el: '#app',
+            data: {},
+            methods: {},
+            computed: {},
+            // components: {
+            //     Profile
+            // }
+        })
+    </script>
+</body>
+
+</html>
