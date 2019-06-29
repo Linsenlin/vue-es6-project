@@ -8,14 +8,20 @@
     <title>19.vue点击图片旋转90度</title>
 </head>
 <style>
+    #app {
+        text-align: center
+    }
+
     img {
         max-width: 300px;
+        transition: all .5s;
+        -webkit-transition: all .5s;
     }
 </style>
 
 <body>
     <div id="app">
-        <img @click="transformFun()" ref="img"
+        <img @click="clockwise()" @contextmenu.prevent="anticlockwise()" ref="img"
             src='https://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=2cd599ead80735fa91a546bfae61238b/8cb1cb13495409235a99588f9e58d109b2de494a.jpg'>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -28,10 +34,16 @@
                 rotate: 0
             },
             methods: {
-                transformFun() {
-                    this.r -= 90;
+                //顺时针
+                clockwise() {
+                    this.r += 10;
                     this.$refs.img.style.transform = 'rotate(' + this.r + 'deg)'
-                    console.log(this.$refs.imgaa);
+                    // console.log(this.$refs.img);
+                },
+                //逆时针
+                anticlockwise() {
+                    this.r -= 10;
+                    this.$refs.img.style.transform = 'rotate(' + this.r + 'deg)'
                 }
             },
             computed: {},

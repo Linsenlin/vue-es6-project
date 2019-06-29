@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>23.vue实现图片的放大缩小</title>
+</head>
+<style>
+    #app {
+        margin: 0 auto;
+    }
+
+    img {
+        transform: scale(1);
+        /*图片原始大小1倍*/
+        transition: all ease 0.5s;
+        width: 150px;
+    }
+
+    .scale {
+        transform: scale(2);
+        /*图片需要放大2倍*/
+        /*属性设置元素的堆叠顺序,保证图片放大后处于最上层*/
+        z-index: 100;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <img :class="{scale:scale}" src="http://www.baidu.com/img/bd_logo.png" @click="imgScale()">
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        new Vue({
+            name: 'vue实现图片的放大缩小',
+            el: '#app',
+            data: {
+                scale: false
+            },
+            methods: {
+                imgScale() {
+                    this.scale = !this.scale
+                }
+            },
+            computed: {},
+            watch: {},
+        })
+    </script>
+</body>
+
+</html>
