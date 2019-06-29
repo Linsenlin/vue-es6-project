@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div id="container">
+            <button @click="changeMsg()">change</button>
+            <span>{{msg}}</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'TigerChain'
+            },
+            beforeCreate() {
+                console.group("%c%s", "color:red", 'beforeCreate--实例创建前状态')
+                console.log("%c%s", "color:blue", "el  :" + this.$el)
+                console.log("%c%s", "color:blue", "data  :" + this.$data)
+                console.log("%c%s", "color:blue", "message  :" + this.msg)
+            },
+            created() {
+                console.group("%c%s", "color:red", 'created--实例创建完成状态')
+                console.log("%c%s", "color:blue", "el  :" + this.$el)
+                console.log("%c%s", "color:blue", "data  :" + this.$data)
+                console.log("%c%s", "color:blue", "message  :" + this.msg)
+            },
+            beforeMount() {
+                console.group("%c%s", "color:red", 'beforeMount--挂载之前的状态')
+                console.log("%c%s", "color:blue", "el  :" + this.$el)
+                console.log(this.$el);
+                console.log("%c%s", "color:blue", "data  :" + this.$data)
+                console.log("%c%s", "color:blue", "message  :" + this.msg)
+            },
+            mounted() {
+                console.group("%c%s", "color:red", 'mounted--已经挂载的状态')
+                console.log("%c%s", "color:blue", "el  :" + this.$el)
+                console.log(this.$el);
+                console.log("%c%s", "color:blue", "data  :" + this.$data)
+                console.log("%c%s", "color:blue", "message  :" + this.msg)
+            },
+            beforeUpdate() {
+                console.group("%c%s", "color:red", 'beforeUpdate--数据更新前的状态')
+                console.log("%c%s", "color:blue", "el  :" + this.$el.innerHTML)
+                console.log(this.$el);
+                console.log("%c%s", "color:blue", "data  :" + this.$data)
+                console.log("%c%s", "color:blue", "message  :" + this.msg)
+                console.log("%c%s", "color:green", "真实的 DOM 结构:" + document.getElementById('container')
+                    .innerHTML)
+            },
+            updated() {
+                console.group("%c%s", "color:red", 'updated--数据更新完成时状态')
+                console.log("%c%s", "color:blue", "el  :" + this.$el.innerHTML)
+                console.log(this.$el);
+                console.log("%c%s", "color:blue", "data  :" + this.$data)
+                console.log("%c%s", "color:blue", "message  :" + this.msg)
+                console.log("%c%s", "color:green", "真实的 DOM 结构:" + document.getElementById('container')
+                    .innerHTML)
+            },
+            activated() {
+                console.group("%c%s", "color:red", 'activated-- keep-alive 组件激活时调用')
+                console.log("%c%s", "color:blue", "el  :" + this.$el)
+                console.log(this.$el);
+                console.log("%c%s", "color:blue", "data  :" + this.$data)
+                console.log("%c%s", "color:blue", "message  :" + this.msg)
+            },
+            deactivated() {
+                console.group("%c%s", "color:red", 'deactivated-- keep-alive 停用时调用')
+                console.log("%c%s", "color:blue", "el  :" + this.$el)
+                console.log(this.$el);
+                console.log("%c%s", "color:blue", "data  :" + this.$data)
+                console.log("%c%s", "color:blue", "message  :" + this.msg)
+            },
+            beforeDestroy() {
+                console.group("%c%s", "color:red", 'beforeDestroy-- vue实例销毁前的状态')
+                console.log("%c%s", "color:blue", "el  :" + this.$el)
+                console.log(this.$el);
+                console.log("%c%s", "color:blue", "data  :" + this.$data)
+                console.log("%c%s", "color:blue", "message  :" + this.msg)
+            },
+            destroyed() {
+                console.group("%c%s", "color:red", 'destroyed-- vue实例销毁完成时调用')
+                console.log("%c%s", "color:blue", "el  :" + this.$el)
+                console.log(this.$el);
+                console.log("%c%s", "color:blue", "data  :" + this.$data)
+                console.log("%c%s", "color:blue", "message  :" + this.msg)
+            },
+            methods: {
+                changeMsg() {
+                    this.msg = 'TigerChain111'
+                }
+            },
+            handleReduce: function (index) {
+                if (this.list[index].count === 1) return;
+                this.list[index].count--;
+                this.list[index].stotal = this.list[index].count * this.list[index].price;
+            },
+            handleAdd: function (index) {
+                this.list[index].count++;
+                this.list[index].stotal = this.list[index].count * this.list[index].price;
+            },
+            handleRemove: function (index) {
+                this.list.splice(index, 1)
+            },
+            check_all: function () {
+                if (this.CheckedAll == false) {
+                    this.list.forEach(item1 => {
+                        item1.checked = true;
+                    });
+                } else {
+                    this.list.forEach(item1 => {
+                        item1.checked = false;
+                    });
+                }
+                this.CheckedAll = !this.CheckedAll;
+            }
+        })
+    </script>
+</body>
+
+</html>

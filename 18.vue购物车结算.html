@@ -5,89 +5,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>18.vue购物车结算</title>
-    <!-- <link rel="stylesheet" href="./css/eleme-ui.css"> -->
-    <!-- <link rel="stylesheet" href="./css/layui.css"> -->
-    <link rel="stylesheet" href="./css/ShoppingCart.css">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .cartTable {
+            width: 100%;
+        }
+
+        .cartTable th {
+            padding: 10px 0;
+            background-color: rgb(240, 177, 140);
+        }
+
+        .cartTable td {
+            padding: 10px 0;
+            text-align: center;
+            border-bottom: 1px #dedede solid;
+        }
+
+        .cartTable td button {
+            margin: 0 10px;
+        }
+
+        .total {
+            padding: 10px 0;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="app">
-        <table class="ShopCartTable">
-            <thead>
+    <div id="app" v-cloak>
+        <template v-if="list.length">
+            <table class="cartTable">
                 <tr>
-                    <th class="selectLeft">
-                        <label>
-                            <input type="checkbox" value="">
-                            <span>全选</span>
-                        </label>
-                        <span class="selectLeftGoods">商品或服务名称</span>
-                    </th>
-                    <th>单价</th>
-                    <th>数量</th>
-                    <th>小计</th>
+                    <th>全选<input type="checkbox" @click="check_all()" v-model="CheckedAll" /></th>
+                    <th></th>
+                    <th>商品名称</th>
+                    <th>商品单价</th>
+                    <th>购买数量</th>
+                    <th>总金额</th>
                     <th>操作</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item, index) in items" :key="index">
-                    <td class="selectLeft">
-                        <label>
-                            <input type="checkbox" value="">
-                        </label>
-                        <span class="goodName">
-                            <img src="img/service4.jpg" class="goodImg">
-                        </span>
-                        <span class="goodName goodsName">
-                            <h2 class="goodname">GZL-中控离心机净化机</h2>
-                            <p class="goodGary"><span>供应商：</span><span>美国</span></p>
-                            <p class="goodGary"><span>发货地：</span><span>中国大陆</span></p>
-                        </span></td>
-                    <td class="danPrice">￥100.00</td>
-                    <td>
-                        <i aria-hidden="true" class="fa  deleteBtn">-</i>
-                        <input type="text" aria-label="..." class="form-control numInput">
-                        <i aria-hidden="true" class="fa  addBtn">+</i>
-                    </td>
-                    <td>
-                        <p class="totalPrice">￥100.00</p>
-                    </td>
-                    <td class="gongneng">
-                        <p class="deletegoods">删除</p>
-                        <p>移到我的收藏</p>
-                        <p>加入收藏</p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class=" tablefooter">
-            <label>
-                <input type="checkbox" value="">
-                <span>全选</span>
-            </label>
-            <span class="removeMuch">删除选中的商品或服务</span>
-            <span class="removeSaves">移到我的收藏</span>
-            <span class="servicenum">已选择<span class="goodsNum">0</span>件商品<span class="goodsNum">0</span>项服务</span><span
-                class="totalclassPoin">总价：<span class="totalMoneyClass">￥0.00</span></span><span
-                class="SettlementBtn">去结算</span>
-        </div>
+                <tbody>
+                    <tr v-for="(item, index) in list" :key="index">
+                        <td><input type="checkbox" v-model="item.checked"></td>
+                        <td>{{ index+1 }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.price }}</td>
+                        <td><button @click="handleReduce(index)"
+                                :disabled="item.count == 1">-</button>{{item.count}}<button
+                                @click="handleAdd(index)">+</button></td>
+                        <td>{{ item.stotal }}</td>
+                        <td><button @click="handleRemove(index)">删除</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="total">总价：¥{{ totalprice }}</div>
+        </template>
+        <div v-else>购物车为空</div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script>
-        new Vue({
-            name: 'vue全局组件',
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+    <script type="text/javascript">
+        var app = new Vue({
             el: '#app',
-            data: {},
-            methods: {},
-            computed: {},
-            watch: {
-                // "from.password": {
-                //     handler(newval, oldval) {
-                //         console.log('user length: ', newval.length)
-                //     },
-                //     deep: true
-                // },
+            data: {
+                CheckedAll: false,
+                list: []
             },
+            mounted() {
+                this.showData();
+                //需要执行的方法可以在mounted中进行触发，其获取的数据可以赋到data中后，可以放在前面进行渲染
+            },
+            computed: {
+                //计算总价
+                totalprice() {
+                    var total = 0;
+                    for (var i = 0; i < this.list.length; i++) {
+                        var item = this.list[i];
+                        console.log("~~~" + this.list[i]);
+                        if (item.checked) {
+                            total += item.price * item.count;
+                        }
+                    }
+                    console.log(total);
+                    console.log(typeof total);
+                    console.log(total.toString().replace(/\B(?=(\d{3})+$)/g, ','));
+                    console.log(typeof total.toString().replace(/\B(?=(\d{3})+$)/g, ','));
+                    return total.toString().replace(/\B(?=(\d{3})+$)/g, ',')
+                }
+            },
+            methods: {
+                showData() {
+                    var _this = this;
+                    $.ajax({
+                        headers: {
+                            Accept: "application/json; charset=utf-8"
+                        },
+                        type: 'post',
+                        url: "http://192.168.1.2:1998/index/shoppingCar",
+                        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                        // data: {},
+                        datatype: "json",
+                        success(data) {
+                            _this.list = data.shoppingCarList
+                            // console.group("%c%s", "color:red", '列表数据');
+                            console.log(data.shoppingCarList);
+                        }
+                    })
+                },
+                handleReduce(index) {
+                    if (this.list[index].count === 1) return;
+                    this.list[index].count--;
+                    this.list[index].stotal = this.list[index].count * this.list[index].price;
+                },
+                //增加产品数量
+                handleAdd(index) {
+                    // console.group("%c%s", "color:red", '2222');
+                    console.log(this.list[index]);
+                    //限购5个
+                    if (this.list[index].count < 5) {
+                        this.list[index].count++;
+                        this.list[index].stotal = this.list[index].count * this.list[index].price;
+                    }
+                },
+                handleRemove(index) {
+                    this.list.splice(index, 1)
+                },
+                check_all() {
+                    console.log(this.CheckedAll);
+                    if (this.CheckedAll === false) {
+                        this.list.forEach(item1 => {
+                            item1.checked = true;
+                        });
+                    } else {
+                        this.list.forEach(item1 => {
+                            item1.checked = false;
+                        });
+                    }
+                    this.CheckedAll = !this.CheckedAll;
+                }
+            }
+
         })
     </script>
 </body>
