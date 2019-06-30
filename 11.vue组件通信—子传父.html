@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11.vue组件通信—子传父</title>
+</head>
+<style>
+</style>
+<!-- vue多层组件通信 需要动态绑定 v-bind/: -->
+
+<body>
+    <!-- 父组件 -->
+    <div id="app">
+        <my_btn @total="allCounter()"></my_btn>
+        <my_btn @total="allCounter()"></my_btn>
+        <my_btn @total="allCounter()"></my_btn>
+        <my_btn @total="allCounter()"></my_btn>
+
+        <p>一共点击了{{totalCounter}}次</p>
+    </div>
+
+    <!-- 子组件 -->
+    <template id="my_btn">
+        <button @click="total()">点击了{{counter}}次</button>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        //1.注册子组件
+        Vue.component('my_btn', {
+            template: '#my_btn',
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                total() {
+                    this.counter += 1;
+                    this.$emit('total');
+                }
+            }
+        })
+
+        new Vue({
+            name: 'vue组件通信—子传父',
+            el: '#app',
+            data: {
+                totalCounter: 0
+            },
+            methods: {
+                allCounter() {
+                    this.totalCounter += 1;
+                }
+            },
+            computed: {},
+            components: {}
+        })
+    </script>
+</body>
+
+</html>
