@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10.vue多层组件通信</title>
+</head>
+<style>
+</style>
+<!-- vue多层组件通信 需要动态绑定 v-bind/: -->
+
+<body>
+    <!-- 父组件 -->
+    <div id="app">
+        <my_parent :message="message" :imgsrc="imgsrc"></my_parent>
+    </div>
+
+    <!-- 子组件 -->
+    <template id="my_img">
+        <div>
+            <img :src="imgsrc" alt="">
+        </div>
+    </template>
+
+    <template id="my_title">
+        <div>
+            <h4>{{message}}</h4>
+        </div>
+    </template>
+
+    <!-- 父组件 -->
+    <template id="my_parent">
+        <div>
+            <Child1 :imgsrc='imgsrc'></Child1>
+            <Child2 :message='message'></Child2>
+        </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        //1.子组件实例化
+        let Child1 = Vue.extend({
+            template: '#my_img',
+            props: ['imgsrc']
+        })
+        let Child2 = Vue.extend({
+            template: '#my_title',
+            props: ['message']
+        })
+
+        //2.注册父组件
+        Vue.component('my_parent', {
+            template: '#my_parent',
+            props: ["message", "imgsrc"],
+            components: {
+                Child1,
+                Child2,
+            },
+        })
+
+        new Vue({
+            name: 'vue组件通信',
+            el: '#app',
+            data: {
+                imgsrc: './images/4.jpg',
+                message: '我是韩雨嘉',
+            },
+            methods: {},
+            computed: {},
+            components: {}
+        })
+    </script>
+</body>
+
+</html>

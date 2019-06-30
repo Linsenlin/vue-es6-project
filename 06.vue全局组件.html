@@ -17,6 +17,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
+        //Vue.extend 返回的是一个“扩展实例构造器”，也就是一个预设了部分选项的 Vue 实例构造器
         let Profile = Vue.extend({
             template: `
             <div>
@@ -25,7 +26,7 @@
             </div>
             `
         })
-
+        //Vue.component 是用来全局注册组件的方法，其作用是将通过 Vue.extend 生成的扩展实例构造器注册（命名）为一个组件，可以简单理解为当在模板中遇到该组件名称作为标签的自定义元素
         Vue.component('myProfile', Profile);
 
         new Vue({

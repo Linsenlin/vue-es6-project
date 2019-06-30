@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09.vue组件通信—父传子</title>
+</head>
+<style>
+</style>
+
+<body>
+    <!-- 父组件 -->
+    <div id="app">
+        <my_div message="韩雨嘉是我" imgSrc="./images/4.jpg"></my_div>
+        <my_div></my_div>
+        <my_div></my_div>
+    </div>
+
+    <!-- 子组件 -->
+    <template id="my_div">
+        <div>
+            <h1>{{message}}</h1>
+            <img :src="imgsrc" alt="">
+        </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        Vue.component('my_div', {
+            template: "#my_div",
+            props: ["message", "imgsrc"]
+        })
+
+        new Vue({
+            name: 'vue组件通信',
+            el: '#app',
+            data: {},
+            methods: {},
+            computed: {},
+            components: {}
+        })
+    </script>
+</body>
+
+</html>
