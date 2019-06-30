@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07.vue父子组件</title>
+</head>
+<style>
+</style>
+
+<body>
+    <div id="app">
+        <Parent>
+            <Parent />
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        let Child1 = Vue.extend({
+            template: `
+            <div>
+                <img src="./images/2.jpg" alt="">
+            </div>
+            `
+        })
+
+        let Child2 = Vue.extend({
+            template: `
+            <div>
+                <p>我很美~</p>
+            </div>
+            `
+        })
+
+        Vue.component('Parent', {
+            components: {
+                'my-child1': Child1,
+                'my-child2': Child2
+            },
+            template: `
+            <div>
+                <my-child1></my-child1>
+                <my-child2></my-child2>
+            </div>
+            `
+        });
+
+        new Vue({
+            name: 'vue父子组件',
+            el: '#app',
+            data: {},
+            methods: {},
+            computed: {},
+            components: {}
+        })
+    </script>
+</body>
+
+</html>
