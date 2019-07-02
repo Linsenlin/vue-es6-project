@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>26.vue文字走马灯效果</title>
+</head>
+<style>
+</style>
+
+<body>
+    <div id="app">
+        <!-- <input type="button" value="浪起来" @click="lang" />
+        <input type="button" value="低调" @click="stop" />
+        <h4>{{ msg }}</h4> -->
+
+        <!-- <input type="button" value="开始" :disabled=isDisabl @click="start"> -->
+        <input type="button" value="开始" @click="start">
+        <input type="button" value="结束" @click="stop">
+        <br>
+        {{good}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        new Vue({
+            name: 'vue文字走马灯效果',
+            el: '#app',
+            data: {
+                // msg: '猥琐发育，别浪~',
+                // intervalId: null,
+                good: "好好学习，天天向上！！！",
+                interval: null,
+                // isDisabl: false
+            },
+            created: function () {
+                // setInterval(this.showMarquee, 1000); //周期执行
+            },
+            methods: {
+                start() {
+                    console.log(this.good);
+                    console.log(this.good.substring(0, 1));
+                    console.log(this.good.substring(1));
+                    var _this = this;
+                    _this.interval = setInterval(function () {
+                        //获取第一个字符
+                        var start = _this.good.substring(0, 1);
+                        //得到后面的字符
+                        var end = _this.good.substring(1);
+                        // _this.isDisabl = true;
+                        //重新赋值
+                        _this.good = end + start;
+                    }, 500)
+
+                },
+                stop: function () {
+                    //停止计时器
+                    // this.isDisabl = false;
+                    clearInterval(this.interval);
+                }
+            },
+            computed: {},
+            watch: {},
+        })
+    </script>
+</body>
+
+</html>
