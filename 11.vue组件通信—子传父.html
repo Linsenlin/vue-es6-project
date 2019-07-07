@@ -18,7 +18,7 @@
         <my_btn @total="allCounter()"></my_btn>
         <my_btn @total="allCounter()"></my_btn>
         <my_btn @total="allCounter()"></my_btn>
-       
+
         <p>一共点击了{{totalCounter}}次</p>
     </div>
 
@@ -26,8 +26,7 @@
     <template id="my_btn">
         <button @click="total()">点击了{{counter}}次</button>
     </template>
-
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         //1.注册子组件
         Vue.component('my_btn', {

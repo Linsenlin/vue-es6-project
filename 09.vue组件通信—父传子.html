@@ -14,7 +14,7 @@
     <!-- 父组件 -->
     <div id="app">
         <!-- <my_div message="韩雨嘉是我啊6" imgSrc="./images/4.jpg" :prop-a="parentmessage"></my_div> -->
-        <my_div message="韩雨嘉是我啊6" :prop-a="parentmessage"></my_div>
+        <my_div message="韩雨嘉" :prop-a="parentmessage"></my_div>
         <!-- <my_div message="韩雨嘉是我啊" imgSrc="./images/4.jpg"></my_div> -->
     </div>
 
@@ -23,7 +23,7 @@
         <div>
             <h1>{{message}}</h1>
             <!--  <img :src="imgsrc" alt=""> -->
-            <p>{{propA}}</p>
+            <p>{{aa}}</p>
         </div>
     </template>
 
@@ -46,13 +46,18 @@
                 // message: String,
                 // imgsrc: "imgsrc"
             },
+            data() {
+                return {
+                    aa: this.propA
+                }
+            }
         })
 
         new Vue({
             name: 'vue组件通信',
             el: '#app',
             data: {
-                parentmessage: "222"
+                parentmessage: "66666"
             },
             methods: {},
             computed: {},
