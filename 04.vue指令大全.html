@@ -161,7 +161,7 @@
         <!-- 默认情况下，v-model同步输入框的值和数据。可以通过这个修饰符，转变为在change事件再同步。在失去焦点 或者 按下回车键时才更新-->
 
         <div>
-            <input v-model.lazy="vModelLazy">
+            <span>我是v-model.lazy指令</span><input v-model.lazy="vModelLazy" @change="show">
             <p>{{ vModelLazy }}</p>
         </div>
 
@@ -258,11 +258,14 @@
                     'text-danger': true
                 },
                 vModel: '我是v-model指令',
-                vModelLazy: '我是v-model.lazy指令',
+                vModelLazy: '',
                 vModelNum: '我是v-model.number指令',
                 vModelTrim: '我是v-model.trim指令',
             },
             methods: {
+                show() {
+                    // this.vModelLazy = vModelLazy;
+                },
                 vOn() {
                     alert('我是v-on指令');
                 }
