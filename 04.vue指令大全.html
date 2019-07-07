@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    [v-cloak] {
+        display: none;
+    }
+
+    .is-active {
+        background-color: blueviolet;
+    }
+
+    .text-danger {
+        color: red;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- v-text -->
+        <div>
+            <span v-text="vText"></span>
+            <!-- 这两者等价： -->
+            <span>{{vText}}</span>
+        </div>
+
+        <!-- v-html -->
+        <!-- 双大括号的方式会将数据解释为纯文本，而非HTML。为了输出真正的HTML，可以用v-html指令。它等同于JS的innerHtml属性。 -->
+        <div v-html="vHtml"></div>
+
+        <!-- v-pre -->
+        <!-- v-pre主要用来跳过这个元素和它的子元素编译过程。可以用来显示原始的Mustache标签。跳过大量没有指令的节点加快编译。 -->
+        <!-- 遍历数组 -->
+        <div>
+            <span v-pre>{{vPre}}</span> <!-- 这条语句不进行编译 -->
+            <span>{{vPre}}</span> <!-- 显示第二个span的内容 -->
+        </div>
+
+        <!-- v-cloak -->
+        <!-- 是用来保持在元素上直到关联实例结束时进行编译。解决屏幕闪动的问题 -->
+        <div>
+            <span v-cloak>{{vCloak}}</span>
+        </div>
+
+        <!-- v-once -->
+        <!-- v-once关联的实例，只会渲染一次。之后的重新渲染，实例极其所有的子节点将被视为静态内容跳过，这可以用于优化更新性能。 -->
+        <div>
+            <span v-once>This will never change:{{vOnce}}</span> <!-- 单个元素 -->
+            <div v-once>
+                <!-- 有子元素 -->
+                <P>comment</P>
+                <p>{{vOnce}}</p>
+            </div>
+            <!--  <my-component v-once:comment="vOnce"></my-component> -->
+            <!-- 组件 -->
+            <ul>
+                <li v-for="i in vOnceList">{{i}}</li>
+            </ul>
+        </div>
+
+        <!-- v-if -->
+        <!-- v-if可以实现条件渲染，Vue会根据表达式的值的真假条件来渲染元素。 -->
+        <div>
+            <a v-if="vIf">我是v-if指令</a>
+        </div>
+
+        <!--  v-else -->
+        <!-- v-else是搭配v-if使用的，它必须紧跟在v-if或者v-else-if后面，否则不起作用。 -->
+        <div>
+            <a v-if="vElse">我是v-if指令</a>
+            <a v-else>我是v-else指令</a>
+        </div>
+
+        <!-- v-else-if -->
+        <!-- v-else-if充当v-if的else-if块，可以链式的使用多次。可以更加方便的实现switch语句。 -->
+        <div>
+            <p v-if="type==='A'">
+                A
+            </p>
+            <p v-if="type==='B'">
+                B
+            </p>
+            <p v-if="type==='C'">
+                C
+            </p>
+            <p v-else>
+                我是v-else-if指令
+            </p>
+        </div>
+
+        <!-- v-show -->
+        <!-- 用于根据条件展示元素。和v-if不同的是，如果v-if的值是false，则这个元素被销毁，不在dom中。但是v-show的元素会始终被渲染并保存在dom中，它只是简单的切换css的dispaly属性。 -->
+        <div>
+            <p v-show="vShow">我是v-show指令</p>
+        </div>
+        <!-- 注意：v-if有更高的切换开销
+        v-show有更高的初始渲染开销。
+        因此，如果要非常频繁的切换，则使用v-show较好；
+        如果在运行时条件不太可能改变，则v-if较好 -->
+
+        <!-- v-for -->
+        <!-- 用v-for指令根据遍历数组来进行渲染有下面两种遍历形式 -->
+        <div>
+            <!-- 遍历对象  使用in，index是一个可选参数，表示当前项的索引 -->
+            <p v-for="(item, index) in scores" :key="index">
+                {{index+':'+item}}
+            </p>
+
+            <!-- 遍历数字/字符串  使用of-->
+            <p v-for="item in name">
+                {{item}}
+            </p>
+        </div>
+
+        <!-- v-bind -->
+        <!-- v-bind用来动态的绑定一个或者多个特性。
+        没有参数时，可以绑定到一个包含键值对的对象。
+        常用于动态绑定class和style。以及href等。简写为一个冒号 : -->
+
+        <!-- <1>对象语法 -->
+        <!-- 进行类切换的例子 -->
+        <div>
+            <!--当data里面定义的isActive等于true时，is-active这个类才会被添加起作用-->
+            <!--当data里面定义的hasError等于true时，text-danger这个类才会被添加起作用-->
+            <p :class="{'is-active':isActive, 'text-danger':hasError}">我是v-bind指令</p>
+        </div>
+
+        <!-- <2>数组语法 -->
+        <div>
+            <!--数组语法：errorClass在data对应的类一定会添加-->
+            <!--is-active是对象语法，根据activeClass对应的取值决定是否添加-->
+            <p :class="[{'is-active':activeClass},errorClass]">我是v-bind指令</p>
+        </div>
+
+        <!-- <3>直接绑定数据对象 -->
+        <div>
+            <!--在vue实例的data中定义了classObject对象，这个对象里面是所有类名及其真值-->
+            <!--当里面的类的值是true时会被渲染-->
+            <div :class="classObject">我是v-bind指令</div>
+        </div>
+
+
+        <!-- v-model -->
+        <!-- 这个指令用于在表单上创建双向数据绑定。
+        v-model会忽略所有表单元素的value、checked、selected特性的初始值。
+        因为它选择Vue实例数据做为具体的值。 -->
+        <div>
+            <input v-model="vModel">
+            <p>{{vModel}}</p>
+        </div>
+
+        <!-- v-model修饰符 -->
+        <!-- <1> .lazy -->
+        <!-- 默认情况下，v-model同步输入框的值和数据。可以通过这个修饰符，转变为在change事件再同步。在失去焦点 或者 按下回车键时才更新-->
+
+        <div>
+            <input v-model.lazy="vModelLazy">
+            <p>{{ vModelLazy }}</p>
+        </div>
+
+        <!-- <2> .number  自动将用户的输入值转化为数值类型 -->
+        <div>
+            <input type="number" v-model.number="vModelNum">
+            <p>{{ vModelNum }}</p>
+            <p>我的数据类型是：{{ typeof(vModelNum) }}</p>
+        </div>
+
+        <!-- <3> .trim 自动过滤用户输入的首尾空格 -->
+        <div>
+            <input type="etxt" v-model.trim="vModelTrim">
+            <p>val的长度是：{{ vModelTrim.length }}</p>
+        </div>
+
+        <!-- v-on -->
+        <!-- v-on主要用来监听dom事件，以便执行一些代码块。表达式可以是一个方法名。
+        简写为：@ -->
+        <div>
+            <button @click="vOn">我是v-model.trim指令</button>
+        </div>
+        <!-- 事件修饰符 
+        .stop 阻止事件继续传播
+
+        .prevent 事件不再重载页面
+
+        .capture 使用事件捕获模式,即元素自身触发的事件先在此处处理，然后才交由内部元素进行处理
+
+        .self 只当在 event.target 是当前元素自身时触发处理函数
+
+        .once 事件将只会触发一次
+
+        .passive 告诉浏览器你不想阻止事件的默认行为 -->
+        <div>
+            <!-- 阻止单击事件继续传播 -->
+            <a v-on:click.stop="doThis">阻止单击事件</a>
+
+            <!-- 提交事件不再重载页面 -->
+            <form v-on:submit.prevent="onSubmit"></form>
+
+            <!-- 修饰符可以串联 -->
+            <a v-on:click.stop.prevent="doThat"></a>
+
+            <!-- 只有修饰符 -->
+            <form v-on:submit.prevent></form>
+
+            <!-- 添加事件监听器时使用事件捕获模式 -->
+            <!-- 即元素自身触发的事件先在此处处理，然后才交由内部元素进行处理 -->
+            <div v-on:click.capture="doThis">...</div>
+
+            <!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
+            <!-- 即事件不是从内部元素触发的 -->
+            <div v-on:click.self="doThat">...</div>
+
+            <!-- 点击事件将只会触发一次 -->
+            <a v-on:click.once="doThis"></a>
+
+            <!-- 滚动事件的默认行为 (即滚动行为) 将会立即触发 -->
+            <!-- 而不会等待 `onScroll` 完成  -->
+            <!-- 这其中包含 `event.preventDefault()` 的情况 -->
+            <div v-on:scroll.passive="onScroll">...</div>
+            <!--  使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用v-on:click.prevent.self会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击。 -->
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                vText: "我是v-text指令",
+                vHtml: `<span>我是v-html指令</span>`,
+                vPre: "我是v-pre指令",
+                vCloak: "我是v-cloak指令",
+                vOnce: "我是v-once指令",
+                vOnceList: [100, 87, 85, 6255],
+                vIf: true,
+                vElse: false,
+                vShow: true,
+                type: "D",
+                scores: [100, 87, 85, 62],
+                preson: {
+                    name: '李四',
+                    age: 18,
+                    sex: '男'
+                },
+                name: '我是v-for指令',
+                isActive: true,
+                hasError: false,
+                activeClass: true,
+                errorClass: 'text-danger',
+                classObject: {
+                    'is-active': false,
+                    'text-danger': true
+                },
+                vModel: '我是v-model指令',
+                vModelLazy: '我是v-model.lazy指令',
+                vModelNum: '我是v-model.number指令',
+                vModelTrim: '我是v-model.trim指令',
+            },
+            methods: {
+                vOn() {
+                    alert('我是v-on指令');
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
